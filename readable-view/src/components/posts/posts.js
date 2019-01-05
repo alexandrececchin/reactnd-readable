@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import Post from './post/post';
-import PropTypes from 'prop-types';
 
 const posts = props => {
   return (
@@ -14,7 +13,5 @@ const posts = props => {
     </Fragment>
   );
 };
-
-posts.propTypes = {};
 
 export default posts;
