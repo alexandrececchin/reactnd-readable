@@ -1,16 +1,28 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Comment from './comment/comment';
-import PropTypes from 'prop-types';
 
 const comments = props => {
   return (
-    <div class="box-footer box-comments">
+    <div className="box-footer box-comments">
       <Comment />
-      <Comment />
+      <div className="box-footer">
+        <form action="#" method="post">
+          <img
+            className="img-responsive img-circle img-sm"
+            src="../dist/img/user4-128x128.jpg"
+            alt="Alt Text"
+          />
+          <div className="img-push">
+            <input
+              type="text"
+              className="form-control input-sm"
+              placeholder="Press enter to post comment"
+            />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
-
-comments.propTypes = {};
 
 export default comments;

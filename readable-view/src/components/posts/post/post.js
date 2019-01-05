@@ -20,7 +20,6 @@ const post = props => {
           </button>
           <button type="button" className="btn btn-box-tool" data-widget="delete">Delete</button>
         </div>
-
       </div>
       <div className="box-body">
         <p>
@@ -39,46 +38,6 @@ const post = props => {
         <button type="button" className="btn btn-default btn-xs">
           <i className="fa fa-minus" />
         </button>
-      </div>
-
-      <div className="box-footer box-comments">
-        <div className="box-comment">
-          <div className="comment-text" style={{ marginLeft: "10px" }}>
-            <span className="username">
-              Maria Gonzales
-              <span className="text-muted pull-right">8:03 PM Today</span>
-            </span>
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout.
-          </div>
-        </div>
-        <div className="box-comment">
-          <div className="comment-text" style={{ marginLeft: "10px" }}>
-            <span className="username">
-              Nora Havisham
-              <span className="text-muted pull-right">8:03 PM Today</span>
-            </span>
-            The point of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English.
-          </div>
-        </div>
-      </div>
-      <div className="box-footer">
-        <form action="#" method="post">
-          <img
-            className="img-responsive img-circle img-sm"
-            src="../dist/img/user4-128x128.jpg"
-            alt="Alt Text"
-          />
-          <div className="img-push">
-            <input
-              type="text"
-              className="form-control input-sm"
-              placeholder="Press enter to post comment"
-            />
-          </div>
-        </form>
       </div>
     </div>
   );

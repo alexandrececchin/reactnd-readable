@@ -1,28 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-function mapStateToProps(state) {
-    return {
-
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-
-    };
-}
+import Posts from '../components/posts/posts'
 
 class Dashboard extends Component {
     render() {
         return (
-            <div>
-
-            </div>
+            <Posts />
         );
     }
 }
 
-export default connect(
-    mapStateToProps,
-)(Dashboard);
+export default Dashboard;
