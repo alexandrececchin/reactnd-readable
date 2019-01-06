@@ -1,5 +1,5 @@
 import * as api from '../../service/service';
-import { receivePosts } from './posts';
+import { receivePosts } from './post';
 import { receiveCategories } from "./category";
 
 export function handleInitialData() {

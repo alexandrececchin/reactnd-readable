@@ -1,6 +1,6 @@
 import * as constants from "../../Util/constant";
 
-export default function users(state = {}, action) {
+export default function comments(state = {}, action) {
     switch (action.type) {
         case constants.RECEIVE_COMMENTS:
             return { ...state, ...action.comments };
