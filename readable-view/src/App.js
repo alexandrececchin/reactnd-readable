@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux'
-import {  BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { handleInitialData } from './store/actions/shared';
 import Dashboard from './container/dashboard';
 import PostDetail from './container/postDetail';
@@ -14,29 +14,30 @@ class App extends React.Component {
   }
 
   render() {
+    const { categories } = this.props;
     return (
       <Router>
-      <Fragment>
-        <Header />
-        <div className="content-wrapper">
-          <section className="content-header">
-            <div className="row">
-              <Switch>
-                <Route exact path="/" render={() => <Dashboard />} />
-                <Route exact path="/:category" render={() => <Dashboard />} />
-                <Route exact path="/:category/:id" render={() => <PostDetail />} />
-                <Route component={PageNotFound} />
-              </Switch>
-            </div>
-          </section>
-        </div>
-      </Fragment>
+        <Fragment>
+          <Header categories={categories} />
+          <div className="content-wrapper">
+            <section className="content-header">
+              <div className="row">
+                <Switch>
+                  <Route exact path="/" render={() => <Dashboard />} />
+                  <Route exact path="/:category" render={() => <Dashboard />} />
+                  <Route exact path="/:category/:id" render={() => <PostDetail />} />
+                  <Route component={PageNotFound} />
+                </Switch>
+              </div>
+            </section>
+          </div>
+        </Fragment>
       </Router>
     );
   }
 }
 
-const Header = () => {
+const Header = (props) => {
   return (
     <header className="main-header">
       <nav className="navbar navbar-static-top">
@@ -46,12 +47,11 @@ const Header = () => {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              <li>
-                <Link to="/cat1/1">Categoria 1</Link>
-              </li>
-              <li>
-                <Link to="/cat2/2">Categoria 2</Link>
-              </li>
+              {props.categories !== null && props.categories.length > 0 && props.categories.map(category => (
+                <li key={category.path}>
+                  <Link to={category.path}>{category.name}</Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -60,5 +60,10 @@ const Header = () => {
   );
 };
 
+function mapStateToProps({ categories }) {
+  return {
+    categories,
+  }
+}
 
-export default connect()(App)
+export default connect(mapStateToProps)(App)
