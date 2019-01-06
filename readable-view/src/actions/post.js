@@ -1,5 +1,5 @@
-import * as constants from '../../Util/constant';
-import * as api from '../../service/service';
+import * as constants from '../Util/constant';
+import * as api from '../service/service';
 
 export function receivePosts(posts) {
     return {

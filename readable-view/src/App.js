@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import { handleInitialData } from './store/actions/shared';
+import { handleInitialData } from './actions/shared';
 import Dashboard from './container/dashboard';
 import PostDetail from './container/postDetail';
 import PageNotFound from "./Util/PageNotFound";

@@ -1,4 +1,4 @@
-import * as api from '../../service/service';
+import * as api from '../service/service';
 import { receivePosts } from './post';
 import { receiveCategories } from "./category";
 

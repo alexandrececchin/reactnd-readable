@@ -1,4 +1,4 @@
-import * as constants from "../../Util/constant";
+import * as constants from "../Util/constant";
 
 export default function categories(state = {}, action) {
     switch (action.type) {
