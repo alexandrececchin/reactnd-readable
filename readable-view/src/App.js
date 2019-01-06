@@ -1,13 +1,21 @@
 import React, { Fragment } from 'react';
-import { Route, Switch, Link } from "react-router-dom";
+import { connect } from 'react-redux'
+import {  BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { handleInitialData } from './store/actions/shared';
 import Dashboard from './container/dashboard';
 import PostDetail from './container/postDetail';
 import PageNotFound from "./Util/PageNotFound";
 import './App.css';
 
 class App extends React.Component {
+
+  componentDidMount() {
+    this.props.dispatch(handleInitialData());
+  }
+
   render() {
     return (
+      <Router>
       <Fragment>
         <Header />
         <div className="content-wrapper">
@@ -23,6 +31,7 @@ class App extends React.Component {
           </section>
         </div>
       </Fragment>
+      </Router>
     );
   }
 }
@@ -52,4 +61,4 @@ const Header = () => {
 };
 
 
-export default App;
+export default connect()(App)
