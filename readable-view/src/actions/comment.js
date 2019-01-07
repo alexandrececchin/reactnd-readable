@@ -1,5 +1,7 @@
-import * as constants from '../../Util/constant';
-import * as api from '../../service/service';
+import * as constants from '../Util/constant';
+import * as api from '../service/service';
+import { normalize } from 'normalizr';
+import { comment as commentSchema } from "../schema/schema";
 
 export function receiveComments(comments) {
     return {
@@ -44,5 +46,13 @@ export function handleUpdateComment(post) {
 export function handleDeleteComment(id) {
     return (dispatch) => {
         return api.deleteCommentById(id).then((id) => dispatch(deleteComment(id)))
+    }
+}
+
+export function handleGetCommentsByPostId(postId) {
+    return (dispatch) => {
+        return api.getCommentsByPost(postId).then((resp) => {
+            dispatch(receiveComments(normalize(resp, [commentSchema]).entities))
+        })
     }
 }
