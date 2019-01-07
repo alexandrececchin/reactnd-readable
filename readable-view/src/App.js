@@ -38,6 +38,7 @@ class App extends React.Component {
 }
 
 const Header = (props) => {
+  const categories = props.categories;
   return (
     <header className="main-header">
       <nav className="navbar navbar-static-top">
@@ -47,11 +48,11 @@ const Header = (props) => {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              {props.categories !== null && props.categories.length > 0 && props.categories.map(category => (
-                <li key={category.path}>
-                  <Link to={category.path}>{category.name}</Link>
+              {Object.keys(props.categories).map(key =>
+                <li key={key}>
+                  <Link to={categories[key].path}>{categories[key].name}</Link>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
         </div>
@@ -62,7 +63,7 @@ const Header = (props) => {
 
 function mapStateToProps({ categories }) {
   return {
-    categories,
+    categories: categories
   }
 }
 

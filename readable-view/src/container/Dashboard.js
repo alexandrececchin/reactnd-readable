@@ -5,21 +5,21 @@ import Posts from '../components/posts/posts'
 
 class Dashboard extends Component {
     render() {
-        //  console.log(this.props)
         return (
-            <Posts />
+            <Posts posts={this.props.posts} />
         );
     }
 }
 
 function mapStateToProps({ posts }, props) {
     const { category } = props.match.params;
+    let postsToRender = [];
     if (category) {
-        console.log(category)
+        postsToRender = Object.keys(posts).filter(key => posts[key].category === category).map(key => posts[key].id);
     }
-
+    postsToRender = Object.keys(posts);
     return {
-        posts,
+        posts: postsToRender
     }
 }
 
