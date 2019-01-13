@@ -9,8 +9,10 @@ import { Creators as PostActions } from '../redux/post/postActions';
 
 class postDetail extends Component {
     componentDidMount() {
-        let postId = this.props.match.params.id;
-        console.log(postId)
+        console.log('postdetail did mount')
+        const { category, id } = this.props.match.params;
+        const { fetchSinglePostRequest } = this.props;
+        fetchSinglePostRequest(id, category);
     }
 
     render() {

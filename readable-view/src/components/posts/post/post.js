@@ -46,6 +46,7 @@ class post extends Component {
 
 function mapStateToProps({ posts }, { id }) {
   let post = posts[id];
+
   return {
     post
   };
