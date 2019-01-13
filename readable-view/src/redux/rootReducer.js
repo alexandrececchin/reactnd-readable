@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
-import posts from "./posts/reducer";
-import comments from "./comment/reducer";
-import categories from "./category/reducer";
+import posts from "./post/postReducer";
+import categories from "./category/categoryReducer";
 
-export default combineReducers({ posts, comments, categories });
+export default combineReducers({ posts,  categories });

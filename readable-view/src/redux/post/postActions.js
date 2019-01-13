@@ -14,11 +14,11 @@ export const Creators = {
         payload: { error },
     }),
     fetchPostsRequest: category => ({
-        type: Types.FECTH_POSTS_REQUEST,
+        type: Types.FECTH_POSTS.REQUEST,
         payload: { category },
     }),
     fetchPostsSuccess: (data, category) => ({
-        type: Types.FECTH_POSTS_SUCCESS,
+        type: Types.FECTH_POSTS.SUCCESS,
         payload: { data, category },
     }),
     fetchPostsError: error => ({
@@ -26,11 +26,11 @@ export const Creators = {
         payload: { error },
     }),
     voteInPostRequest: (postId, option) => ({
-        type: Types.VOTE_POST_REQUEST,
+        type: Types.VOTE_POST.REQUEST,
         payload: { postId, option },
     }),
     voteInPostSuccess: (data, postId) => ({
-        type: Types.VOTE_POST_SUCCESS,
+        type: Types.VOTE_POST.SUCCESS,
         payload: { data, postId },
     }),
     voteInPostError: error => ({
@@ -38,35 +38,35 @@ export const Creators = {
         payload: { error },
     }),
     addPostRequest: post => ({
-        type: Types.ADD_POST_REQUEST,
+        type: Types.ADD_POST.REQUEST,
         payload: { ...post },
     }),
     addPostSuccess: (data, category) => ({
-        type: Types.ADD_POST_SUCCESS,
+        type: Types.ADD_POST.SUCCESS,
         payload: { data, category },
     }),
     addPostError: error => ({
         type: Types.ADD_POST.ERROR,
         payload: { error },
     }),
-    editPostRequest: (post, postId) => ({
-        type: Types.EDIT_POST_REQUEST,
+    updatePostRequest: (post, postId) => ({
+        type: Types.UPDATE_POST.REQUEST,
         payload: { ...post, postId },
     }),
-    editPostSuccess: (data, category) => ({
-        type: Types.EDIT_POST_SUCCESS,
+    updatePostSuccess: (data, category) => ({
+        type: Types.UPDATE_POST.SUCCESS,
         payload: { data, category },
     }),
-    editPostError: error => ({
-        type: Types.EDIT_POST.ERROR,
+    updatePostError: error => ({
+        type: Types.UPDATE_POST.ERROR,
         payload: { error },
     }),
     deletePostRequest: postId => ({
-        type: Types.DELETE_POST_REQUEST,
+        type: Types.DELETE_POST.REQUEST,
         payload: { postId },
     }),
     deletePostSuccess: data => ({
-        type: Types.DELETE_POST_SUCCESS,
+        type: Types.DELETE_POST.SUCCESS,
         payload: { data },
     }),
     deletePostError: error => ({

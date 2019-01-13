@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
-import api from '../../services/api';
+import api from '../../service/service';
 import { post } from './postSchema';
 import { Creators as PostsActions } from "./postActions";
 

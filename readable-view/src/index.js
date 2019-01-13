@@ -7,7 +7,6 @@ import rootReducers from "./redux/rootReducer";
 import rootSaga from "./redux/rootSagas";
 import logger from './logger';
 import App from './App';
-import './index.css';
 
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

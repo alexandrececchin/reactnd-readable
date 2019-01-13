@@ -1,18 +1,22 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import { handleInitialData } from './actions/shared';
-import Dashboard from './container/dashboard';
+import Dashboard from './container/Dashboard';
 import PostDetail from './container/postDetail';
 import PageNotFound from "./Util/PageNotFound";
-import './App.css';
+import { Creators as CategoryActions } from './redux/category/categoryActions';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
+  static propTypes = {
+    fetchCategoriesRequest: PropTypes.func.isRequired,
+  };
 
   componentDidMount() {
-    this.props.dispatch(handleInitialData());
+    const { fetchCategoriesRequest } = this.props;
+    fetchCategoriesRequest();
   }
-
   render() {
     const { categories } = this.props;
     return (
@@ -61,10 +65,13 @@ const Header = (props) => {
   );
 };
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CategoryActions, dispatch);
+
 function mapStateToProps({ categories }) {
   return {
     categories: categories
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
