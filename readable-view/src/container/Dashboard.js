@@ -22,7 +22,20 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <Posts posts={this.props.posts} />
+            <div >
+                <div className="col-md-6 col-md-offset-3" >
+                    <div class="btn-group">
+                        <button type="button" className="btn btn- dropdown-toggle" data-toggle="dropdown">
+                            Order By: <span class="caret"></span>
+                        </button>
+                        <ul className="dropdown-menu">
+                            <li><a href="/#">Date</a></li>
+                            <li><a href="/#">Score</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <Posts posts={this.props.posts} />
+            </div>
         );
     }
 }

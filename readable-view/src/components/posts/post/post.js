@@ -5,7 +5,7 @@ import { formatDate } from "../../../Util/util";
 class post extends Component {
   render() {
     const { post } = this.props
-    const { author, body, category, id, timestamp, title, voteScore } = post || {}
+    const { author, body, category, id, timestamp, title, voteScore, commentCount } = post || {}
     return (
       <div className="box box-widget">
         <div className="box-header with-border">
@@ -37,6 +37,7 @@ class post extends Component {
           <button type="button" className="btn btn-default btn-xs">
             <i className="fa fa-minus" />
           </button>
+            <span className="pull-right"><i className="fa fa-comment"> {commentCount}</i></span>
         </div>
       </div >
     );

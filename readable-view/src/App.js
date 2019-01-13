@@ -21,7 +21,8 @@ class App extends React.Component {
     return (
       <Router>
         <Fragment>
-          <Header categories={this.props.categories} />
+          <Header />
+          <SideBar categories={this.props.categories} />
           <div className="content-wrapper">
             <section className="content-header">
               <div className="row">
@@ -41,28 +42,45 @@ class App extends React.Component {
 }
 
 const Header = (props) => {
-  const categories = props.categories;
   return (
     <header className="main-header">
-      <nav className="navbar navbar-static-top">
-        <div className="container">
-          <div className="collapse navbar-collapse pull-left">
-            <ul className="nav navbar-nav">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              {Object.keys(props.categories).map(key =>
-                <li key={key}>
-                  <Link to={categories[key].path}>{categories[key].name}</Link>
-                </li>
-              )}
-            </ul>
-          </div>
-        </div>
+      <a href="/" className="logo">
+        <span className="logo-mini"><i className="fa fa-home"/></span>
+        <span className="logo-lg"><b>Home</b></span>
+      </a>
+      <nav className="navbar navbar-static-top" >
+        <a href="/#" className="sidebar-toggle" data-toggle="push-menu" role="button">
+          <span className="sr-only">Toggle navigation</span>
+        </a>
       </nav>
-    </header>
+    </header >
   );
 };
+
+
+const SideBar = (props) => {
+  const categories = props.categories;
+  return (
+    <div className="main-sidebar">
+      <ul className="sidebar-menu">
+        <li className="active ">
+          <a href="/#">
+            <i className="fa fa-dashboard"></i> <span>Category</span>
+          </a>
+          <ul className="treeview-menu">
+            {Object.keys(props.categories).map(key =>
+              <li key={key}>
+                <Link to={categories[key].path}>{categories[key].name}</Link>
+              </li>
+            )}
+          </ul>
+        </li>
+
+      </ul>
+
+    </div>
+  );
+}
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CategoryActions, dispatch);
