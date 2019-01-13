@@ -1,17 +1,17 @@
-import * as constants from "../Util/constant";
+import { RECEIVE_COMMENTS, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT } from "./commentTypes";
 
 export default function comments(state = {}, action) {
     switch (action.type) {
-        case constants.RECEIVE_COMMENTS:
+        case RECEIVE_COMMENTS.SUCCESS:
             return { ...state, ...action.comments };
-        case constants.ADD_COMMENT:
-        case constants.UPDATE_COMMENT:
+        case ADD_COMMENT.SUCCESS:
+        case UPDATE_COMMENT.SUCCESS:
             const { comment } = action;
             return {
                 ...state,
                 [action.comment.id]: comment
             }
-        case constants.DELETE_COMMENT:
+        case DELETE_COMMENT.SUCCESS:
             const { id } = action.id;
             const comments = state.filter(comment => comment.id !== id);
 

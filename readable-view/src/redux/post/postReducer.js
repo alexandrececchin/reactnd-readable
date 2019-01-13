@@ -1,17 +1,19 @@
-import * as constants from "../Util/constant";
+import { FECTH_POSTS, ADD_POST, UPDATE_POST, DELETE_POST, VOTE_POST, FECTH_POST } from "./postTypes";
 
 export default function posts(state = {}, action) {
     switch (action.type) {
-        case constants.RECEIVE_POSTS:
+        case FECTH_POSTS.SUCCESS:
             return { ...state, ...action.posts };
-        case constants.ADD_POST:
-        case constants.UPDATE_POST:
+        case FECTH_POST.SUCCESS:
+        case ADD_POST.SUCCESS:
+        case VOTE_POST.SUCCESS:
+        case UPDATE_POST.SUCCESS:
             const { post } = action;
             return {
                 ...state,
                 [action.post.id]: post
             }
-        case constants.DELETE_POST:
+        case DELETE_POST.SUCCESS:
             const { id } = action.id;
             const posts = state.filter(post => post.id !== id);
 

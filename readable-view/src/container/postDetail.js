@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import Post from '../components/posts/post/post';
 import Comments from '../components/comments/comments'
-import { handleGetCommentsByPostId } from "../actions/comment";
+import { handleGetCommentsByPostId } from "../redux/comment/actions";
 
 
 class postDetail extends Component {

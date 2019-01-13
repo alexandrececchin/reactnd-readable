@@ -1,7 +1,7 @@
-import * as constants from '../Util/constant';
-import * as api from '../service/service';
+import * as constants from '../../Util/constant';
+import * as api from '../../service/service';
 import { normalize } from 'normalizr';
-import { comment as commentSchema } from "../schema/schema";
+import { comment as commentSchema } from "../../schema/schema";
 
 export function receiveComments(comments) {
     return {

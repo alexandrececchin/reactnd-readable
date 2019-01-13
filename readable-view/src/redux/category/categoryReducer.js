@@ -1,8 +1,8 @@
-import * as constants from "../Util/constant";
+import { FETCH_CATEGORIES } from "./categoryType"
 
 export default function categories(state = {}, action) {
     switch (action.type) {
-        case constants.RECEIVE_CATEGORIES:
+        case FETCH_CATEGORIES.SUCCESS:
             return { ...state, ...action.categories };
         default:
             return state;
