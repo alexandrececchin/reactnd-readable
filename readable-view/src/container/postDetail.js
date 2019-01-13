@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import Post from '../components/posts/post/post';
 import Comments from '../components/comments/comments'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as PostActions } from '../redux/post/postActions';
 
 
 class postDetail extends Component {
@@ -23,4 +26,16 @@ class postDetail extends Component {
     }
 }
 
-export default withRouter(postDetail);
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(PostActions, dispatch);
+
+function mapStateToProps({ posts }, props) {
+    const { category, id } = props.match.params;
+    return {
+        category,
+        id
+    }
+}
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(postDetail));

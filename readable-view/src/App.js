@@ -18,11 +18,10 @@ class App extends React.Component {
     fetchCategoriesRequest();
   }
   render() {
-    const { categories } = this.props;
     return (
       <Router>
         <Fragment>
-          <Header categories={categories} />
+          <Header categories={this.props.categories} />
           <div className="content-wrapper">
             <section className="content-header">
               <div className="row">

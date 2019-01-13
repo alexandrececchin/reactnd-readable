@@ -6,10 +6,12 @@ import { Creators as PostsActions } from "./postActions";
 
 export function* fetchPosts(action) {
   const { category } = action.payload;
-  let url = category ? '/posts' : `/${category}/posts`
-
+  let url = category ? `/${category}/posts` : '/posts'
+console.log(url)
   try {
+
     const response = yield call(api.get, url);
+    console.log(normalize(response.data, [post]))
     yield put(
       PostsActions.fetchPostsSuccess(normalize(response.data, [post]), category)
     );

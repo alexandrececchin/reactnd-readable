@@ -5,9 +5,7 @@ import { Creators as CategoriesActions } from './categoryActions';
 
 export function* fetchCategories() {
   try {
-    console.log('fetchCategories');
     const response = yield call(api.get, '/categories');
-    console.log(response);
 
     yield put(
       CategoriesActions.fetchCategoriesSuccess(response.data.categories),

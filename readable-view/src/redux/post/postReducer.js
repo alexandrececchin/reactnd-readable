@@ -3,7 +3,7 @@ import { FECTH_POSTS, ADD_POST, UPDATE_POST, DELETE_POST, VOTE_POST, FECTH_POST 
 export default function posts(state = {}, action) {
     switch (action.type) {
         case FECTH_POSTS.SUCCESS:
-            return { ...state, ...action.posts };
+            return {...action.payload.data.entities.posts};
         case FECTH_POST.SUCCESS:
         case ADD_POST.SUCCESS:
         case VOTE_POST.SUCCESS:
