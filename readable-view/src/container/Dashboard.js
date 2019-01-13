@@ -14,7 +14,6 @@ class Dashboard extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.category !== prevProps.category) {
-            console.log('componentDidUpdate')
             const { fetchPostsRequest } = this.props
             fetchPostsRequest(this.props.category);
         }
@@ -24,9 +23,9 @@ class Dashboard extends Component {
         return (
             <div >
                 <div className="col-md-6 col-md-offset-3" >
-                    <div class="btn-group">
+                    <div className="btn-group">
                         <button type="button" className="btn btn- dropdown-toggle" data-toggle="dropdown">
-                            Order By: <span class="caret"></span>
+                            Order By: <span className="caret"></span>
                         </button>
                         <ul className="dropdown-menu">
                             <li><a href="/#">Date</a></li>

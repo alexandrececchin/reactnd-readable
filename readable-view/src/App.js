@@ -70,7 +70,7 @@ const SideBar = (props) => {
           <ul className="treeview-menu">
             {Object.keys(props.categories).map(key =>
               <li key={key}>
-                <Link to={categories[key].path}>{categories[key].name}</Link>
+                <Link to={'/'+categories[key].path}>{categories[key].name}</Link>
               </li>
             )}
           </ul>
