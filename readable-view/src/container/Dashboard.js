@@ -20,6 +20,7 @@ class Dashboard extends Component {
     }
 
     render() {
+        console.log()
         return (
             <div >
                 <div className="col-md-6 col-md-offset-3" >
@@ -44,9 +45,10 @@ const mapDispatchToProps = dispatch =>
 
 function mapStateToProps({ posts }, props) {
     const { category } = props.match.params;
-    let postsToRender = Object.keys(posts);
-
-
+    let postsToRender = Object.keys(posts).filter(key => !posts[key].delete);
+    if (category != null) {
+        postsToRender = postsToRender.filter(key => posts[key].category === category)
+    }
     return {
         category: category,
         posts: postsToRender
