@@ -1,33 +1,42 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
+import { connect } from 'react-redux';
+import { formatDate } from "../../../Util/util";
 
-const comment = props => {
-  return (
-    <Fragment>
-      <div className="box-footer box-comments">
-        <div className="box-comment">
-          <div className="comment-text" style={{ marginLeft: "10px" }}>
-            <span className="username">
-              Maria Gonzales
-              <span className="text-muted pull-right">8:03 PM Today</span>
-            </span>
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout.
+class comment extends Component {
+  render() {
+    console.log(this.props.comment)
+    const { author, body, timestamp, voteScore } = this.props.comment || {}
+    return (
+      <Fragment>
+        <div className="box-footer box-comments">
+          <div className="box-comment">
+            <div className="comment-text" style={{ marginLeft: "10px" }}>
+              <span className="username">
+                {author}
+                <span className="text-muted pull-right">{formatDate(timestamp)} - vote: {voteScore}</span>
+              </span>
+              {body}
+            </div>
           </div>
         </div>
-        <div className="box-comment">
-          <div className="comment-text" style={{ marginLeft: "10px" }}>
-            <span className="username">
-              Nora Havisham
-              <span className="text-muted pull-right">8:03 PM Today</span>
-            </span>
-            The point of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English.
-          </div>
-        </div>
-      </div>
-    </Fragment>
-  );
-};
+      </Fragment>
+    );
+  }
+}
 
-export default comment;
+
+function mapStateToProps({comments}, {commentId}) {
+  let comment = comments[commentId];
+  return {
+    comment,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+
+  };
+}
+
+export default connect( mapStateToProps,)(comment);
+

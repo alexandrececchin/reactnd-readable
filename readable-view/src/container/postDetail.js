@@ -5,23 +5,25 @@ import Comments from '../components/comments/comments'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as PostActions } from '../redux/post/postActions';
+import { Creators as CommentActions } from "../redux/comment/commentActions";
 
 
 class postDetail extends Component {
     componentDidMount() {
-        console.log('postdetail did mount')
         const { category, id } = this.props.match.params;
-        const { fetchSinglePostRequest } = this.props;
+        const { fetchSinglePostRequest, fetchCommentsRequest } = this.props;
         fetchSinglePostRequest(id, category);
+        fetchCommentsRequest(id);
     }
 
     render() {
         const id = this.props.match.params.id;
+        const { commentsToRender } = this.props;
         return (
             <div className="col-md-10 col-md-offset-1" >
                 <div className="box-footer box-comments">
                     <Post id={id} />
-                    <Comments postId={id} />
+                    <Comments postId={id} comments={commentsToRender} />
                 </div>
             </div>
         );
@@ -29,13 +31,17 @@ class postDetail extends Component {
 }
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators(PostActions, dispatch);
+    bindActionCreators({ ...PostActions, ...CommentActions }, dispatch);
 
-function mapStateToProps({ posts }, props) {
+function mapStateToProps({ posts, comments }, props) {
     const { category, id } = props.match.params;
+    let commentsToRender = Object.keys(comments).filter(key => !comments[key].deleted
+        && comments[key].parentId === id);
+
     return {
         category,
-        id
+        id,
+        commentsToRender
     }
 }
 
