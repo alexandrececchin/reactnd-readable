@@ -6,9 +6,9 @@ import { formatDate } from "../../../Util/util";
 
 class post extends Component {
 
-  handleVoteScore = (postId,option) =>{
-    const {registerPostVotetRequest} = this.props
-    registerPostVotetRequest( postId, option)
+  handleVoteScore = (postId, option) => {
+    const { registerPostVotetRequest } = this.props
+    registerPostVotetRequest(postId, option)
   }
 
   render() {
@@ -38,14 +38,14 @@ class post extends Component {
           <p>
             {body}
           </p>
-          <button type="button" className="btn btn-default btn-xs" onClick={()=> this.handleVoteScore(id,"upVote")} >
+          <span onClick={() => this.handleVoteScore(id, "upVote")} >
             <i className="fa fa-plus" />
-          </button>
-          <span className="text-muted"> {voteScore} </span>
-          <button type="button" className="btn btn-default btn-xs" onClick={()=> this.handleVoteScore(id,"downVote")} >
+          </span>
+          <span style={{fontSize: '15px' }}> {voteScore} </span>
+          <span onClick={() => this.handleVoteScore(id, "downVote")} >
             <i className="fa fa-minus" />
-          </button>
-            <span className="pull-right"><i className="fa fa-comment"> {commentCount}</i></span>
+          </span>
+          <span className="pull-right"><i className="fa fa-comment"> {commentCount}</i></span>
         </div>
       </div >
     );
@@ -62,4 +62,4 @@ function mapStateToProps({ posts }, { id }) {
   };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(post);
+export default connect(mapStateToProps, mapDispatchToProps)(post);
