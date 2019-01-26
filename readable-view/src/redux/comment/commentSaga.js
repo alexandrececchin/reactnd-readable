@@ -23,3 +23,21 @@ export function* fetchComments(action) {
         );
     }
 }
+
+
+export function* registerCommentVote(action) {
+    const { commentId, option } = action.payload;
+
+    try {
+        const response = yield call(api.post, `/comments/${commentId}`,{option});
+        yield put(
+            CommentsActions.registerCommentVoteSuccess(normalize(response.data, comment)),
+        );
+    } catch (err) {
+        yield put(
+            CommentsActions.registerCommentVoteError(
+                'An error has occurred. Please, refresh the page.',
+            ),
+        );
+    }
+}

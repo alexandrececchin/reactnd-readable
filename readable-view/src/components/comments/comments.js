@@ -3,7 +3,6 @@ import Comment from './comment/comment';
 
 const comments = (props) => {
   const { comments } = props;
-  console.log(comments);
   return (
     <div className="box-footer box-comments">
       {comments.map((key) => (
