@@ -25,15 +25,15 @@ export const Creators = {
         type: Types.FECTH_POSTS.ERROR,
         payload: { error },
     }),
-    voteInPostRequest: (postId, option) => ({
+    registerPostVotetRequest: (postId, option) => ({
         type: Types.VOTE_POST.REQUEST,
         payload: { postId, option },
     }),
-    voteInPostSuccess: (data, postId) => ({
+    registerPostVoteSuccess: (data, postId) => ({
         type: Types.VOTE_POST.SUCCESS,
         payload: { data, postId },
     }),
-    voteInPostError: error => ({
+    registerPostVoteError: error => ({
         type: Types.VOTE_POST.ERROR,
         payload: { error },
     }),

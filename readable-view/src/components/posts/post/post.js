@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as PostActions } from '../../../redux/post/postActions';
 import { formatDate } from "../../../Util/util";
 
 class post extends Component {
+
+  handleVoteScore = (postId,option) =>{
+    const {registerPostVotetRequest} = this.props
+    registerPostVotetRequest( postId, option)
+  }
+
   render() {
     const { post } = this.props
     const { author, body, category, id, timestamp, title, voteScore, commentCount } = post || {}
@@ -30,11 +38,11 @@ class post extends Component {
           <p>
             {body}
           </p>
-          <button type="button" className="btn btn-default btn-xs">
+          <button type="button" className="btn btn-default btn-xs" onClick={()=> this.handleVoteScore(id,"upVote")} >
             <i className="fa fa-plus" />
           </button>
           <span className="text-muted"> {voteScore} </span>
-          <button type="button" className="btn btn-default btn-xs">
+          <button type="button" className="btn btn-default btn-xs" onClick={()=> this.handleVoteScore(id,"downVote")} >
             <i className="fa fa-minus" />
           </button>
             <span className="pull-right"><i className="fa fa-comment"> {commentCount}</i></span>
@@ -44,6 +52,8 @@ class post extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => bindActionCreators(PostActions, dispatch);
+
 function mapStateToProps({ posts }, { id }) {
   let post = posts[id];
 
@@ -52,4 +62,4 @@ function mapStateToProps({ posts }, { id }) {
   };
 }
 
-export default connect(mapStateToProps)(post);
+export default connect(mapStateToProps,mapDispatchToProps)(post);

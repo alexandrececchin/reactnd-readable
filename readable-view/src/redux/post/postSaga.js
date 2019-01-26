@@ -43,3 +43,22 @@ export function* fetchPost(action) {
     );
   }
 }
+
+export function* registerVotePost(action) {
+  const { postId, option } = action.payload;
+
+
+  try {
+    const response = yield call(api.post, `/posts/${postId}`, { option });
+    console.log('response ', normalize(response.data, post))
+    yield put(
+      PostsActions.registerPostVoteSuccess(normalize(response.data, post), postId),
+    );
+  } catch (err) {
+    yield put(
+      PostsActions.registerPostVoteError(
+        'An error has occurred. Please, refresh the page.',
+      ),
+    );
+  }
+}

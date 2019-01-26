@@ -8,10 +8,10 @@ export default function posts(state = {}, action) {
         case ADD_POST.SUCCESS:
         case VOTE_POST.SUCCESS:
         case UPDATE_POST.SUCCESS:
-            const { post } = action;
+            const {payload } = action;
             return {
                 ...state,
-                [action.post.id]: post
+                ...payload.data.entities.posts
             }
         case DELETE_POST.SUCCESS:
             const { id } = action.id;
