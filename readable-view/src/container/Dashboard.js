@@ -9,7 +9,6 @@ class Dashboard extends Component {
     componentDidMount() {
         const { category, fetchPostsRequest } = this.props
         fetchPostsRequest(category);
-        console.log(category);
     }
 
     componentDidUpdate(prevProps) {
@@ -20,7 +19,6 @@ class Dashboard extends Component {
     }
 
     render() {
-        console.log()
         return (
             <div >
                 <div className="col-md-6 col-md-offset-3" >
