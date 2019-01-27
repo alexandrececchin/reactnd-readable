@@ -11,9 +11,15 @@ class post extends Component {
     registerPostVotetRequest(postId, option)
   }
 
+  handleDeletePost = (postId) => {
+    const {deletePostRequest } = this.props
+    deletePostRequest(postId)
+  }
+
   render() {
     const { post } = this.props
     const { author, body, category, id, timestamp, title, voteScore, commentCount } = post || {}
+
     return (
       <div className="box box-widget">
         <div className="box-header with-border">
@@ -31,7 +37,10 @@ class post extends Component {
             <button type="button" className="btn btn-box-tool" data-widget="collapse">
               Edit
           </button>
-            <button type="button" className="btn btn-box-tool" data-widget="delete">Delete</button>
+            <button type="button" onClick={() => this.handleDeletePost(id)}
+              className="btn btn-box-tool" data-widget="delete">
+              Delete
+            </button>
           </div>
         </div>
         <div className="box-body">
@@ -41,7 +50,7 @@ class post extends Component {
           <span onClick={() => this.handleVoteScore(id, "upVote")} >
             <i className="fa fa-plus" />
           </span>
-          <span style={{fontSize: '15px' }}> {voteScore} </span>
+          <span style={{ fontSize: '15px' }}> {voteScore} </span>
           <span onClick={() => this.handleVoteScore(id, "downVote")} >
             <i className="fa fa-minus" />
           </span>
@@ -56,7 +65,7 @@ const mapDispatchToProps = dispatch => bindActionCreators(PostActions, dispatch)
 
 function mapStateToProps({ posts }, { id }) {
   let post = posts[id];
-
+  console.log(id)
   return {
     post
   };

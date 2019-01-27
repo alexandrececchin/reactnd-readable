@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import Post from '../components/posts/post/post';
 import Comments from '../components/comments/comments'
 import { connect } from 'react-redux';
@@ -18,7 +18,11 @@ class postDetail extends Component {
 
     render() {
         const id = this.props.match.params.id;
-        const { commentsToRender } = this.props;
+        const { commentsToRender, redirectHome } = this.props;
+        if (redirectHome) {
+            return <Redirect to="/" />
+        }
+
         return (
             <div className="col-md-10 col-md-offset-1" >
                 <div className="box-footer box-comments">
@@ -33,14 +37,20 @@ class postDetail extends Component {
 const mapDispatchToProps = dispatch =>
     bindActionCreators({ ...PostActions, ...CommentActions }, dispatch);
 
-function mapStateToProps({ comments }, props) {
+function mapStateToProps({ posts, comments }, props) {
     const { category, id } = props.match.params;
-    let commentsToRender = Object.keys(comments).filter(key => !comments[key].deleted && comments[key].parentId === id);
+    let commentsToRender = Object.keys(comments)
+        .filter(key => !comments[key].deleted && comments[key].parentId === id);
+    let redirectHome = false;
+    if (posts[id] && posts[id].deleted) {
+        redirectHome = true
+    }
 
     return {
         category,
         id,
-        commentsToRender
+        commentsToRender,
+        redirectHome
     }
 }
 

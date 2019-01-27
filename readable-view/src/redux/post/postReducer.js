@@ -9,19 +9,13 @@ export default function posts(state = {}, action) {
         case ADD_POST.SUCCESS:
         case VOTE_POST.SUCCESS:
         case UPDATE_POST.SUCCESS:
+        case DELETE_POST.SUCCESS:
             const { payload } = action;
             return {
                 ...state,
                 ...payload.data.entities.posts
             }
-        case DELETE_POST.SUCCESS:
-            const { id } = action.id;
-            const posts = state.filter(post => post.id !== id);
-
-            return { ...state, posts }
-
         case ADD_COMMENT.SUCCESS:
-            console.log(state[action.payload.postId])
             return {
                 ...state,
                 [action.payload.postId]: {

@@ -62,3 +62,39 @@ export function* registerVotePost(action) {
     );
   }
 }
+
+
+export function* editPost(action) {
+  const { title, body, postId } = action.payload;
+  const params = {
+    title,
+    body,
+  };
+
+  try {
+    const response = yield call(api.put, `/posts/${postId}`, { ...params });
+
+    yield put(PostsActions.editPostSuccess(normalize(response.data, post)));
+  } catch (err) {
+    yield put(
+      PostsActions.editPostError(
+        'An error has occurred. Please, refresh the page.',
+      ),
+    );
+  }
+}
+
+export function* deletePost(action) {
+  const { postId } = action.payload;
+  try {
+    const response = yield call(api.delete, `/posts/${postId}`);
+    console.log(normalize(response.data, post))
+    yield put(PostsActions.deletePostSuccess(normalize(response.data, post)));
+  } catch (err) {
+    yield put(
+      PostsActions.deletePostError(
+        'An error has occurred. Please, refresh the page.',
+      ),
+    );
+  }
+}

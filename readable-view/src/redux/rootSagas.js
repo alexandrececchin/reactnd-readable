@@ -1,7 +1,7 @@
 import { all, takeLatest } from 'redux-saga/effects';
 
 import * as PostTypes from './post/postTypes';
-import { fetchPosts, fetchPost, registerVotePost } from './post/postSaga';
+import { fetchPosts, fetchPost, registerVotePost, deletePost } from './post/postSaga';
 
 import * as CommentTypes from './comment/commentTypes';
 import {
@@ -17,6 +17,7 @@ export default function* rootSaga() {
         takeLatest(PostTypes.FECTH_POSTS.REQUEST, fetchPosts),
         takeLatest(PostTypes.FECTH_POST.REQUEST, fetchPost),
         takeLatest(PostTypes.VOTE_POST.REQUEST, registerVotePost),
+        takeLatest(PostTypes.DELETE_POST.REQUEST, deletePost),
 
 
         takeLatest(CommentTypes.FETCH_COMMENTS.REQUEST, fetchComments),
