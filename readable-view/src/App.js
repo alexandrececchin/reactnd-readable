@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import Dashboard from './container/Dashboard';
+import Dashboard from './container/dashboard';
 import PostDetail from './container/postDetail';
 import PageNotFound from "./Util/PageNotFound";
 import { Creators as CategoryActions } from './redux/category/categoryActions';
