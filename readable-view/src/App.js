@@ -7,6 +7,7 @@ import PostDetail from './container/postDetail';
 import PageNotFound from "./Util/PageNotFound";
 import { Creators as CategoryActions } from './redux/category/categoryActions';
 import PropTypes from 'prop-types';
+import Loading from './container/loading';
 
 class App extends React.Component {
   static propTypes = {
@@ -21,6 +22,7 @@ class App extends React.Component {
     return (
       <Router>
         <Fragment>
+          <Loading />
           <Header />
           <SideBar categories={this.props.categories} />
           <div className="content-wrapper">
