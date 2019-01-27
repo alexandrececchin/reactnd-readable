@@ -6,7 +6,7 @@ import { fetchPosts, fetchPost, registerVotePost } from './post/postSaga';
 import * as CommentTypes from './comment/commentTypes';
 import {
     fetchComments, registerCommentVote, addComment,
-    updateComment
+    updateComment, deleteComment
 } from './comment/commentSaga';
 
 import * as CategoryTypes from './category/categoryType';
@@ -23,6 +23,7 @@ export default function* rootSaga() {
         takeLatest(CommentTypes.VOTE_COMMENT.REQUEST, registerCommentVote),
         takeLatest(CommentTypes.ADD_COMMENT.REQUEST, addComment),
         takeLatest(CommentTypes.UPDATE_COMMENT.REQUEST, updateComment),
+        takeLatest(CommentTypes.DELETE_COMMENT.REQUEST, deleteComment),
 
         takeLatest(CategoryTypes.FETCH_CATEGORIES.REQUEST, fetchCategories),
     ]);

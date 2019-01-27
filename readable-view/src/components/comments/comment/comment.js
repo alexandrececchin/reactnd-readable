@@ -14,8 +14,9 @@ class comment extends Component {
     const { registerCommentVoteRequest } = this.props
     registerCommentVoteRequest(commentId, option)
   }
-  handleDeleteComment = (commentId) => {
-    console.log(commentId);
+  handleDeleteComment = (commentId,parentId ) => {
+    const {deleteCommentRequest} = this.props
+    deleteCommentRequest(commentId, parentId)
   }
 
   handleEdit = () => {
@@ -66,7 +67,7 @@ class comment extends Component {
                 <span style={{ margin: '0 4px 0 4px' }} onClick={() => this.handleEdit()} >
                   <i className="fa fa-pencil" style={{ cursor: 'pointer' }} />
                 </span>
-                <span onClick={() => this.handleDeleteComment(id)} >
+                <span onClick={() => this.handleDeleteComment(id, parentId)} >
                   <i className="fa fa-trash" style={{ cursor: 'pointer' }} />
                 </span>
               </div>

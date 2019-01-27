@@ -1,5 +1,5 @@
 import { FECTH_POSTS, ADD_POST, UPDATE_POST, DELETE_POST, VOTE_POST, FECTH_POST } from "./postTypes";
-import {ADD_COMMENT, DELETE_COMMENT} from '../comment/commentTypes'
+import { ADD_COMMENT, DELETE_COMMENT } from '../comment/commentTypes'
 
 export default function posts(state = {}, action) {
     switch (action.type) {
@@ -21,6 +21,7 @@ export default function posts(state = {}, action) {
             return { ...state, posts }
 
         case ADD_COMMENT.SUCCESS:
+            console.log(state[action.payload.postId])
             return {
                 ...state,
                 [action.payload.postId]: {

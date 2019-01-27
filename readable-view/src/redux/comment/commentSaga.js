@@ -45,7 +45,6 @@ export function* addComment(action) {
 
     try {
         const response = yield call(api.post, '/comments', { ...action.payload });
-        console.log(normalize(response.data, comment));
 
         yield put(
             CommentsActions.addCommentSuccess(
@@ -74,8 +73,6 @@ export function* updateComment(action) {
             ...params,
         });
 
-        console.log(normalize(response.data, comment), postId);
-
         yield put(
             CommentsActions.updateCommentSuccess(
                 normalize(response.data, comment),
@@ -96,7 +93,7 @@ export function* deleteComment(action) {
 
     try {
         const response = yield call(api.delete, `/comments/${commentId}`);
-
+        console.log('delete comment')
         yield put(
             CommentsActions.deleteCommentSuccess(
                 normalize(response.data, comment),
