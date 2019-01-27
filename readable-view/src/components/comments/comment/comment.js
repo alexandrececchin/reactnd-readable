@@ -40,6 +40,7 @@ class comment extends Component {
     );
   }
 }
+
 const mapDispatchToProps = dispatch => bindActionCreators(CommentActions, dispatch);
 
 function mapStateToProps({ comments }, { commentId }) {

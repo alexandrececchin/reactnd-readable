@@ -33,11 +33,11 @@ class postDetail extends Component {
 const mapDispatchToProps = dispatch =>
     bindActionCreators({ ...PostActions, ...CommentActions }, dispatch);
 
-function mapStateToProps({ posts, comments }, props) {
+function mapStateToProps({ comments }, props) {
+    console.log(comments)
     const { category, id } = props.match.params;
-    let commentsToRender = Object.keys(comments).filter(key => !comments[key].deleted
-        && comments[key].parentId === id);
-
+    let commentsToRender = Object.keys(comments).filter(key => !comments[key].deleted && comments[key].parentId === id);
+    console.log(commentsToRender)
     return {
         category,
         id,

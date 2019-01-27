@@ -41,3 +41,25 @@ export function* registerCommentVote(action) {
         );
     }
 }
+
+export function* addComment(action) {
+    const {parentId } = action.payload;
+
+    try {
+      const response = yield call(api.post, '/comments', { ...action.payload });
+      console.log(normalize(response.data, comment));
+
+      yield put(
+        CommentsActions.addCommentSuccess(
+          normalize(response.data, comment),
+          parentId,
+        ),
+      );
+    } catch (err) {
+      yield put(
+        CommentsActions.addCommentError(
+          'An error has occurred. Please, refresh the page.',
+        ),
+      );
+    }
+  }

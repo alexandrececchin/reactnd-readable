@@ -1,29 +1,15 @@
 import React from 'react';
 import Comment from './comment/comment';
+import CommentForm from './comment/commentForm';
 
 const comments = (props) => {
-  const { comments } = props;
+  const { comments, postId } = props;
   return (
     <div className="box-footer box-comments">
       {comments.map((key) => (
-        <Comment key={key} commentId={key}/>
+        <Comment key={key} commentId={key} />
       ))}
-      <div className="box-footer">
-        <form action="#" method="post">
-          <img
-            className="img-responsive img-circle img-sm"
-            src="../dist/img/user4-128x128.jpg"
-            alt="Alt Text"
-          />
-          <div className="img-push">
-            <input
-              type="text"
-              className="form-control input-sm"
-              placeholder="Press enter to post comment"
-            />
-          </div>
-        </form>
-      </div>
+      <CommentForm postId={postId} />
     </div>
   );
 };
