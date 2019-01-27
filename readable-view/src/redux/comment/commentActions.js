@@ -37,15 +37,15 @@ export const Creators = {
     type: Types.ADD_COMMENT.ERROR,
     payload: { error },
   }),
-  editCommentRequest: (params, commentId, postId) => ({
+  updateCommentRequest: (params, commentId, postId) => ({
     type: Types.UPDATE_COMMENT.REQUEST,
     payload: { ...params, commentId, postId },
   }),
-  editCommentSuccess: (data, postId) => ({
+  updateCommentSuccess: (data, postId) => ({
     type: Types.UPDATE_COMMENT.SUCCESS,
     payload: { data, postId },
   }),
-  editCommentError: error => ({
+  updateCommentError: error => ({
     type: Types.UPDATE_COMMENT.ERROR,
     payload: { error },
   }),

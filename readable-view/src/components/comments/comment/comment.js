@@ -3,16 +3,44 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { formatDate } from "../../../Util/util";
 import { Creators as CommentActions } from '../../../redux/comment/commentActions';
+import CommentEditView from './commentEditView';
 
 class comment extends Component {
+  state = {
+    isEditView: false
+  }
 
   handleCommentVote = (commentId, option) => {
     const { registerCommentVoteRequest } = this.props
     registerCommentVoteRequest(commentId, option)
   }
+  handleDeleteComment = (commentId) => {
+    console.log(commentId);
+  }
+
+  handleEdit = () => {
+    this.setState({ isEditView: true })
+  }
+
+  handleEditCancel = () => {
+    this.setState({ isEditView: false })
+  }
+
+  handleUpdateComment = (params, id, parentId) => {
+    const { updateCommentRequest } = this.props
+    updateCommentRequest(params, id, parentId)
+    this.setState({ isEditView: false })
+  }
 
   render() {
-    const { author, body, timestamp, voteScore, id } = this.props.comment || {}
+    const { author, body, timestamp, voteScore, id, parentId } = this.props.comment || {}
+
+    let element = body;
+    if (this.state.isEditView) {
+      element = <CommentEditView body={body} id={id} parentId={parentId}
+        handleSubmit={this.handleUpdateComment} handleCancel={this.handleEditCancel} />
+    }
+
     return (
       <div className="box-footer box-comments">
         <div className="box-comment">
@@ -31,9 +59,19 @@ class comment extends Component {
           <div className="comment-text" style={{ marginLeft: "10px" }}>
             <span className="username">
               {author}
-              <span className="text-muted pull-right">{formatDate(timestamp)}</span>
+              <div className="pull-right" >
+                <span className="text-muted">
+                  {formatDate(timestamp)}
+                </span>
+                <span style={{ margin: '0 4px 0 4px' }} onClick={() => this.handleEdit()} >
+                  <i className="fa fa-pencil" style={{ cursor: 'pointer' }} />
+                </span>
+                <span onClick={() => this.handleDeleteComment(id)} >
+                  <i className="fa fa-trash" style={{ cursor: 'pointer' }} />
+                </span>
+              </div>
             </span>
-            {body}
+            {element}
           </div>
         </div>
       </div>
