@@ -64,7 +64,7 @@ export function* registerVotePost(action) {
 }
 
 
-export function* editPost(action) {
+export function* updatePost(action) {
   const { title, body, postId } = action.payload;
   const params = {
     title,
@@ -73,11 +73,11 @@ export function* editPost(action) {
 
   try {
     const response = yield call(api.put, `/posts/${postId}`, { ...params });
-
-    yield put(PostsActions.editPostSuccess(normalize(response.data, post)));
+    console.log(normalize(response.data, post))
+    yield put(PostsActions.updatePostSuccess(normalize(response.data, post)));
   } catch (err) {
     yield put(
-      PostsActions.editPostError(
+      PostsActions.updatePostError(
         'An error has occurred. Please, refresh the page.',
       ),
     );

@@ -1,33 +1,40 @@
 import React, { Component, Fragment } from 'react';
-import { connect, bindActionCreators } from 'react-redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
 import { Creators as PostActions } from '../../../redux/post/postActions';
 
 //TODO add categoru drop box
 class postEditView extends Component {
     state = {
-        id: '',
-        body: '',
-        title: '',
+        post: {
+            id: '',
+            body: '',
+            title: '',
+        },
         postError: '',
         titleError: ''
     }
 
     componentWillMount() {
-        this.setState({
-            id: this.props.postId,
-            body: this.props.body,
-            title: this.props.title,
-        })
+        console.log('teste')
+        if (this.props.post) {
+            this.setState({
+                post: this.props.post
+            })
+        }
     }
 
     handlePostChange = (e) => {
-        this.setState({ body: e.target.value }, () => {
+        const { post } = this.state
+        post.body = e.target.value
+
+        this.setState({ post }, () => {
             this.validatePost()
         });
     }
 
     validatePost = () => {
-        const { body } = this.state
+        const { body } = this.state.post
         this.setState({
             postError:
                 body.length > 3 ? null : 'The post body must be longer than 3 characters'
@@ -35,13 +42,16 @@ class postEditView extends Component {
     }
 
     handleTitleChange = (e) => {
-        this.setState({ title: e.target.value }, () => {
+        const { post } = this.state
+        post.title = e.target.value
+
+        this.setState({ post }, () => {
             this.validateTitle()
         });
     }
 
     validateTitle = () => {
-        const { title } = this.state
+        const { title } = this.state.post
         this.setState({
             titleError:
                 title.length > 3 ? null : 'The Title must be longer than 3 characters'
@@ -50,8 +60,13 @@ class postEditView extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { id, body, title } = this.state
-        this.props.handleSubmit(id, title, body)
+        const { id } = this.state.post
+        let post = {
+            ...this.state.post,
+            timestamp: new Date()
+          }
+
+        this.props.handleSubmit(post, id)
     }
 
     handleCancel = (e) => {
@@ -67,8 +82,8 @@ class postEditView extends Component {
                     <div className={`form-group ${this.state.titleError ? 'has-error' : ''} `}>
                         <label htmlFor="post-text">Title: </label>
                         <div id="post-text" className="img-push">
-                            <input value={this.state.title}
-                                type="text" onChange={this.handlePostChange}
+                            <input value={this.state.post.title}
+                                type="text" onChange={this.handleTitleChange}
                                 className="form-control input-sm"
                                 placeholder="Enter a title"
                             />
@@ -78,7 +93,7 @@ class postEditView extends Component {
                     <div className={`form-group ${this.state.postError ? 'has-error' : ''} `}>
                         <label htmlFor="post-text">Post: </label>
                         <div id="post-text" className="img-push">
-                            <textarea value={this.state.body}
+                            <textarea value={this.state.post.body}
                                 type="text" onChange={this.handlePostChange}
                                 className="form-control input-sm"
                                 placeholder="Enter a text to post"
