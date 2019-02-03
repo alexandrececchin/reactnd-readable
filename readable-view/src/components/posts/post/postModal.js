@@ -22,7 +22,8 @@ let initialState = {
 let style = {
   position: 'fixed',
   right: '25px',
-  bottom: '25px'
+  bottom: '25px',
+  zIndex: '10'
 };
 
 class PostModal extends React.Component {
@@ -171,7 +172,7 @@ class PostModal extends React.Component {
                   <div className="col-md-6">
                     <div className="form-group">
                       <label>Category*: </label>
-                      <CategorySelect handleSelect={this.handleCategorySelect} />
+                      <CategorySelect handleSelect={this.handleCategorySelect} selectedOption={this.state.post.category} />
                     </div>
                   </div>
                 </div>

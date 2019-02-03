@@ -2,14 +2,15 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as PostActions } from '../../../redux/post/postActions';
+import CategorySelect from '../../category/categorySelect';
 
-//TODO add categoru drop box
 class postEditView extends Component {
   state = {
     post: {
       id: '',
       body: '',
-      title: ''
+      title: '',
+      category: ''
     },
     postError: '',
     titleError: ''
@@ -55,6 +56,12 @@ class postEditView extends Component {
     });
   };
 
+  handleCategorySelect = category => {
+    const { post } = this.state;
+    post.category = category;
+    this.setState({ post });
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     const { id } = this.state.post;
@@ -74,47 +81,73 @@ class postEditView extends Component {
   render() {
     return (
       <Fragment>
-        <form>
-          <div className={`form-group ${this.state.titleError ? 'has-error' : ''} `}>
-            <label htmlFor="post-text">Title: </label>
-            <div id="post-text" className="img-push">
-              <input
-                value={this.state.post.title}
-                type="text"
-                onChange={this.handleTitleChange}
-                className="form-control input-sm"
-                placeholder="Enter a title"
-              />
-              <span>{this.state.titleError}</span>
+        <div className="content">
+          <div className="row">
+            <div className="col-md-12">
+              <div className={`form-group ${this.state.titleError ? 'has-error' : ''} `}>
+                <label htmlFor="post-text">Title: </label>
+                <div id="post-text" className="img-push">
+                  <input
+                    value={this.state.post.title}
+                    type="text"
+                    onChange={this.handleTitleChange}
+                    className="form-control input-sm"
+                    placeholder="Enter a title"
+                  />
+                  <span>{this.state.titleError}</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div className={`form-group ${this.state.postError ? 'has-error' : ''} `}>
-            <label htmlFor="post-text">Post: </label>
-            <div id="post-text" className="img-push">
-              <textarea
-                value={this.state.post.body}
-                type="text"
-                onChange={this.handlePostChange}
-                className="form-control input-sm"
-                placeholder="Enter a text to post"
-              />
-              <span>{this.state.postError}</span>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="form-group">
+                <label>Category*: </label>
+                <CategorySelect
+                  handleSelect={this.handleCategorySelect}
+                  selectedOption={this.state.post.category}
+                />
+              </div>
             </div>
           </div>
-          <div className="box-body btn-group pull-right">
-            <button
-              type="button"
-              className="btn btn-block btn-primary btn-xs"
-              onClick={this.handleSubmit}
-              disabled={this.state.postError || this.state.titleError}
-            >
-              Save
-            </button>
-            <button type="button" className="btn btn-block btn-default btn-xs" onClick={this.handleCancel}>
-              Cancel
-            </button>
+          <div className="row">
+            <div className="col-md-12">
+              <div className={`form-group ${this.state.postError ? 'has-error' : ''} `}>
+                <label htmlFor="post-text">Post: </label>
+                <div id="post-text" className="img-push">
+                  <textarea
+                    value={this.state.post.body}
+                    type="text"
+                    onChange={this.handlePostChange}
+                    className="form-control input-sm"
+                    placeholder="Enter a text to post"
+                  />
+                  <span>{this.state.postError}</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </form>
+          <div className="row">
+            <div className="box-body btn-group pull-right">
+              <button
+                type="button"
+                className="btn btn-primary btn-xs"
+                onClick={this.handleSubmit}
+                disabled={this.state.postError || this.state.titleError}
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                className="btn btn-default btn-xs"
+                style={{ marginLeft: '5px' }}
+                onClick={this.handleCancel}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
       </Fragment>
     );
   }

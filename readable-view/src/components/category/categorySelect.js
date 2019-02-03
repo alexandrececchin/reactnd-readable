@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 
 class categorySelect extends Component {
   state = {
-    selectedOption: ''
+    selectedOption: null
   };
 
   handleChange = selectedOption => {
@@ -19,10 +19,16 @@ class categorySelect extends Component {
   };
 
   render() {
-    const { selectvalues } = this.props;
+    const { selectvalues, selectedOption } = this.props;
+    let selected = this.state.selectedOption
+      ? this.state.selectedOption
+      : Object.keys(selectvalues)
+          .filter(key => selectvalues[key].value === selectedOption)
+          .map(key => selectvalues[key]);
+
     return (
       <Select
-        value={this.state.selectedOption}
+        value={selected}
         placeholder="Select a category"
         onChange={this.handleChange}
         options={selectvalues}
