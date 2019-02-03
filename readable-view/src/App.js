@@ -2,13 +2,13 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import Dashboard from './container/dashboard';
-import PostDetail from './container/postDetail';
+import Dashboard from './pages/dashboard';
+import PostDetail from './pages/postDetail';
 import PageNotFound from './Util/PageNotFound';
 import { Creators as CategoryActions } from './redux/category/categoryActions';
 import PropTypes from 'prop-types';
-import Loading from './container/loading';
-import Notifacations from './container/notifacations';
+import Loading from './components/loading/loading';
+import Notifacations from './components/notifications/notifacations';
 import PostModal from './components/posts/post/postModal';
 
 class App extends React.Component {

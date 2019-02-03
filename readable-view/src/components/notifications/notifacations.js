@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Creators as NotificationActions } from '../redux/notification/notificationAction';
+import { Creators as NotificationActions } from '../../redux/notification/notificationAction';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
