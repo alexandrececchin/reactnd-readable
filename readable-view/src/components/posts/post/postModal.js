@@ -19,6 +19,12 @@ let initialState = {
   authorError: ''
 };
 
+let style = {
+  position: 'fixed',
+  right: '25px',
+  bottom: '25px'
+};
+
 class PostModal extends React.Component {
   constructor(props) {
     super(props);
@@ -110,8 +116,8 @@ class PostModal extends React.Component {
 
     return (
       <div>
-        <button type="button" onClick={this.openModal}>
-          Launch modal
+        <button type="button" className="btn btn-primary" style={style} onClick={this.openModal}>
+          <i className="plus circle icon" />
         </button>
         <div
           className="modal fade in"
