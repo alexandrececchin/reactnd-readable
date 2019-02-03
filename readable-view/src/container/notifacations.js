@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as NotificationActions } from '../redux/notification/notificationAction';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 class Notifacations extends Component {
   componentDidUpdate(prevProps) {
-    if (this.props.time !== prevProps.time) {
+    if (!this.props.displayed) {
       const { type, message } = this.props;
       this.createNotication(type, message);
     }
   }
 
   createNotication = (type, message) => {
-    console.log('teste');
     switch (type) {
       case 'warning':
         NotificationManager.warning(message || '', 'Close after 3000ms', 3000);
         break;
       case 'error':
-        NotificationManager.error(message || '', 'Click me!', 5000, () => {
-          alert('callback');
-        });
+        NotificationManager.error(message || '', 'Error!', 5000);
         break;
       default:
         NotificationManager.success(message || '', 'Success');
     }
+    const { notificationDisplayed } = this.props;
+    notificationDisplayed();
   };
 
   render() {
@@ -36,9 +37,14 @@ class Notifacations extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => bindActionCreators(NotificationActions, dispatch);
+
 function mapStateToProps({ notification }) {
-  const { type, message, time } = notification;
-  return { type, message, time };
+  const { type, message, displayed } = notification;
+  return { type, message, displayed };
 }
 
-export default connect(mapStateToProps)(Notifacations);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Notifacations);
