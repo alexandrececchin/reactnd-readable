@@ -6,7 +6,28 @@ import Posts from '../components/posts/posts';
 import { Creators as PostActions } from '../redux/post/postActions';
 import { Selectors } from '../redux/rootReducer';
 
+function getSortedPostsArray(posts, option) {
+  if (option) {
+    switch (option) {
+      case 'score':
+        return posts.sort((a, b) => a.voteScore < b.voteScore).map(p => p.id);
+      case 'date':
+        return posts.sort((a, b) => a.timestamp < b.timestamp).map(p => p.id);
+      case 'author':
+        return posts.sort((a, b) => a.author.localeCompare(b.author));
+      default:
+        return posts.map(p => p.id);
+    }
+  } else {
+    return posts.map(p => p.id);
+  }
+}
+
 class Dashboard extends Component {
+  state = {
+    filterOption: ''
+  };
+
   componentDidMount() {
     const { category, fetchPostsRequest } = this.props;
     fetchPostsRequest(category);
@@ -19,7 +40,12 @@ class Dashboard extends Component {
     }
   }
 
+  handleChangeFilter = option => {
+    this.setState({ filterOption: option });
+  };
+
   render() {
+    const postsIds = getSortedPostsArray(this.props.posts, this.state.filterOption);
     return (
       <div>
         <div className="col-md-6 col-md-offset-3">
@@ -29,15 +55,24 @@ class Dashboard extends Component {
             </button>
             <ul className="dropdown-menu">
               <li>
-                <a href="/#">Date</a>
+                <a href="/#" onClick={() => this.handleChangeFilter('date')}>
+                  Date
+                </a>
               </li>
               <li>
-                <a href="/#">Score</a>
+                <a href="/#" onClick={() => this.handleChangeFilter('score')}>
+                  Score
+                </a>
               </li>
+              {/* <li>
+                <a href="/#" onClick={() => this.handleChangeFilter('author')}>
+                  Author
+                </a>
+              </li> */}
             </ul>
           </div>
         </div>
-        <Posts posts={this.props.posts} />
+        <Posts posts={postsIds} />
       </div>
     );
   }

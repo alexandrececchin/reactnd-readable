@@ -53,16 +53,13 @@ export const getVisiblePosts = createSelector(
     return Object.keys(posts)
       .map(key => posts[key])
       .filter(post => !post.deleted)
-      .map(post => post.id);
+      .map(post => post);
   }
 );
 
 export const getPostsByCategory = (state, category) => {
-  let postList = state.posts;
   let visiblePosts = getVisiblePosts(state)
-    .map(key => postList[key])
     .filter(p => p.category === category)
-    .map(p => p.id);
   return visiblePosts;
 };
 
