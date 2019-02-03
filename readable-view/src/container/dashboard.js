@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import Posts from '../components/posts/posts';
 import { Creators as PostActions } from '../redux/post/postActions';
+import { Selectors } from '../redux/rootReducer';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -43,15 +44,12 @@ class Dashboard extends Component {
 }
 const mapDispatchToProps = dispatch => bindActionCreators(PostActions, dispatch);
 
-function mapStateToProps({ posts }, props) {
+function mapStateToProps(state, props) {
   const { category } = props.match.params;
-  let postsToRender = Object.keys(posts)
-    .map(key => posts[key])
-    .filter(post => !post.deleted)
-    .map(post => post.id);
+  let postsToRender = Selectors.posts.getVisiblePosts(state);
 
   if (category != null) {
-    postsToRender = postsToRender.filter(key => posts[key].category === category);
+    postsToRender = Selectors.posts.getPostsByCategory(state, category);
   }
 
   return {

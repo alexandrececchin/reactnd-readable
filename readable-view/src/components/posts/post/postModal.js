@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import CategorySelect from '../../category/categorySelect';
 import { Creators as PostActions } from '../../../redux/post/postActions';
 
-let initialState = {
+const INITIAL_STATE = {
   open: false,
   post: {
     id: '',
@@ -29,11 +29,11 @@ let style = {
 class PostModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = initialState;
+    this.state = INITIAL_STATE;
   }
 
   cleanState = () => {
-    this.setState(initialState);
+    this.setState(INITIAL_STATE);
   };
 
   openModal = () => {
@@ -41,7 +41,7 @@ class PostModal extends React.Component {
   };
 
   closeModal = () => {
-    this.setState({...initialState});
+    this.setState({...INITIAL_STATE});
   };
 
   handleBodyChange = e => {

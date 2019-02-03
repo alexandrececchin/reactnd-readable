@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as PostActions } from '../redux/post/postActions';
 import { Creators as CommentActions } from "../redux/comment/commentActions";
+import { Selectors } from "../redux/rootReducer";
 
 
 class postDetail extends Component {
@@ -37,12 +38,16 @@ class postDetail extends Component {
 const mapDispatchToProps = dispatch =>
     bindActionCreators({ ...PostActions, ...CommentActions }, dispatch);
 
-function mapStateToProps({ posts, comments }, props) {
+function mapStateToProps(state, props) {
     const { category, id } = props.match.params;
-    let commentsToRender = Object.keys(comments)
-        .filter(key => !comments[key].deleted && comments[key].parentId === id);
+
+    let commentsToRender = Selectors.comments.getVisibleComments(state, id)
+
+    let post = Selectors.posts.getPost(state, id)
+
     let redirectHome = false;
-    if (posts[id] && posts[id].deleted) {
+
+    if (post && post.deleted) {
         redirectHome = true
     }
 

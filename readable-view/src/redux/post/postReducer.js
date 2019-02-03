@@ -8,6 +8,8 @@ import {
 } from './postTypes';
 import { ADD_COMMENT, DELETE_COMMENT } from '../comment/commentTypes';
 
+import { createSelector } from 'reselect';
+
 export default function posts(state = {}, action) {
   switch (action.type) {
     case FECTH_POSTS.SUCCESS:
@@ -43,3 +45,31 @@ export default function posts(state = {}, action) {
       return state;
   }
 }
+const postList = state => state.posts;
+
+export const getVisiblePosts = createSelector(
+  postList,
+  posts => {
+    return Object.keys(posts)
+      .map(key => posts[key])
+      .filter(post => !post.deleted)
+      .map(post => post.id);
+  }
+);
+
+export const getPostsByCategory = (state, category) => {
+  let postList = state.posts;
+  let visiblePosts = getVisiblePosts(state)
+    .map(key => postList[key])
+    .filter(p => p.category === category)
+    .map(p => p.id);
+  return visiblePosts;
+};
+
+export const getPost = (state, postId) =>
+  createSelector(
+    postList,
+    post => {
+      return postList[postId];
+    }
+  );
