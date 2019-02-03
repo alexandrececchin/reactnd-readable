@@ -73,7 +73,7 @@ export function* updatePost(action) {
 
   try {
     const response = yield call(api.put, `/posts/${postId}`, { ...params });
-    console.log(normalize(response.data, post))
+
     yield put(PostsActions.updatePostSuccess(normalize(response.data, post)));
   } catch (err) {
     yield put(
@@ -88,7 +88,7 @@ export function* deletePost(action) {
   const { postId } = action.payload;
   try {
     const response = yield call(api.delete, `/posts/${postId}`);
-    console.log(normalize(response.data, post))
+
     yield put(PostsActions.deletePostSuccess(normalize(response.data, post)));
   } catch (err) {
     yield put(
@@ -98,3 +98,23 @@ export function* deletePost(action) {
     );
   }
 }
+
+
+
+export function* addPost(action) {
+    const { post } = action.payload;
+
+    try {
+      const response = yield call(api.post, '/posts', { ...post });
+      console.log('response :', response);
+      yield put(
+        PostsActions.addPostSuccess(normalize(response.data, post)),
+      );
+    } catch (err) {
+      yield put(
+        PostsActions.addPostError(
+          'An error has occurred. Please, refresh the page.',
+        ),
+      );
+    }
+  }

@@ -8,6 +8,7 @@ import PageNotFound from "./Util/PageNotFound";
 import { Creators as CategoryActions } from './redux/category/categoryActions';
 import PropTypes from 'prop-types';
 import Loading from './container/loading';
+import PostModal from './components/posts/post/postModal';
 
 class App extends React.Component {
   static propTypes = {
@@ -26,7 +27,8 @@ class App extends React.Component {
           <Header />
           <SideBar categories={this.props.categories} />
           <div className="content-wrapper">
-            <section className="content-header">
+            <section className="content">
+            <PostModal />
               <div className="row">
                 <Switch>
                   <Route exact path="/" render={() => <Dashboard />} />

@@ -39,11 +39,11 @@ export const Creators = {
     }),
     addPostRequest: post => ({
         type: Types.ADD_POST.REQUEST,
-        payload: { ...post },
+        payload: { post },
     }),
-    addPostSuccess: (data, category) => ({
+    addPostSuccess: (data) => ({
         type: Types.ADD_POST.SUCCESS,
-        payload: { data, category },
+        payload: { data },
     }),
     addPostError: error => ({
         type: Types.ADD_POST.ERROR,
