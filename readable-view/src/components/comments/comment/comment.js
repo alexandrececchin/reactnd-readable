@@ -1,33 +1,93 @@
-import React, { Fragment } from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { formatDate } from "../../../Util/util";
+import { Creators as CommentActions } from '../../../redux/comment/commentActions';
+import CommentEditView from './commentEditView';
 
-const comment = props => {
-  return (
-    <Fragment>
+class comment extends Component {
+  state = {
+    isEditView: false
+  }
+
+  handleCommentVote = (commentId, option) => {
+    const { registerCommentVoteRequest } = this.props
+    registerCommentVoteRequest(commentId, option)
+  }
+  handleDeleteComment = (commentId,parentId ) => {
+    const {deleteCommentRequest} = this.props
+    deleteCommentRequest(commentId, parentId)
+  }
+
+  handleEdit = () => {
+    this.setState({ isEditView: true })
+  }
+
+  handleEditCancel = () => {
+    this.setState({ isEditView: false })
+  }
+
+  handleUpdateComment = (params, id, parentId) => {
+    const { updateCommentRequest } = this.props
+    updateCommentRequest(params, id, parentId)
+    this.setState({ isEditView: false })
+  }
+
+  render() {
+    const { author, body, timestamp, voteScore, id, parentId } = this.props.comment || {}
+
+    let element = body;
+    if (this.state.isEditView) {
+      element = <CommentEditView body={body} id={id} parentId={parentId}
+        handleSubmit={this.handleUpdateComment} handleCancel={this.handleEditCancel} />
+    }
+
+    return (
       <div className="box-footer box-comments">
         <div className="box-comment">
-          <div className="comment-text" style={{ marginLeft: "10px" }}>
-            <span className="username">
-              Maria Gonzales
-              <span className="text-muted pull-right">8:03 PM Today</span>
+          <div className="pull-left" style={{ marginRight: '5px', textAlign: 'center' }}>
+            <span onClick={() => this.handleCommentVote(id, "upVote")}  >
+              <i className="fa fa-arrow-up"></i>
             </span>
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout.
+            <h6 style={{ margin: '0', fontSize: '15px' }}>
+              {voteScore}
+            </h6>
+            <span onClick={() => this.handleCommentVote(id, "downVote")}>
+              <i className="fa fa-arrow-down"></i>
+            </span>
           </div>
-        </div>
-        <div className="box-comment">
+
           <div className="comment-text" style={{ marginLeft: "10px" }}>
             <span className="username">
-              Nora Havisham
-              <span className="text-muted pull-right">8:03 PM Today</span>
+              {author}
+              <div className="pull-right" >
+                <span className="text-muted">
+                  {formatDate(timestamp)}
+                </span>
+                <span style={{ margin: '0 4px 0 4px' }} onClick={() => this.handleEdit()} >
+                  <i className="fa fa-pencil" style={{ cursor: 'pointer' }} />
+                </span>
+                <span onClick={() => this.handleDeleteComment(id, parentId)} >
+                  <i className="fa fa-trash" style={{ cursor: 'pointer' }} />
+                </span>
+              </div>
             </span>
-            The point of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English.
+            {element}
           </div>
         </div>
       </div>
-    </Fragment>
-  );
-};
+    );
+  }
+}
 
-export default comment;
+const mapDispatchToProps = dispatch => bindActionCreators(CommentActions, dispatch);
+
+function mapStateToProps({ comments }, { commentId }) {
+  let comment = comments[commentId];
+  return {
+    comment,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(comment);
+

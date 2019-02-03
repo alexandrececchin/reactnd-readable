@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, compose } from "redux";
 import { Provider } from "react-redux";
-import reducer from "./reducers";
-import middleware from "./middleware";
-import './index.css';
+import createSagaMiddleware from 'redux-saga';
+import { createStore, compose, applyMiddleware } from "redux";
+import rootReducers from "./redux/rootReducer";
+import rootSaga from "./redux/rootSagas";
 import App from './App';
 
+const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const enhancer = composeEnhancers(middleware);
-const store = createStore(reducer, enhancer);
+const store = createStore(rootReducers, {}, composeEnhancers(applyMiddleware(sagaMiddleware)));
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
     <Provider store={store}>
