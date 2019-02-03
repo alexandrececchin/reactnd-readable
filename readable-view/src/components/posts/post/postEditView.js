@@ -16,7 +16,6 @@ class postEditView extends Component {
   };
 
   componentWillMount() {
-    console.log('teste');
     if (this.props.post) {
       this.setState({
         post: this.props.post
