@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 import api from '../../service/service';
-import { post } from './postSchema';
+import { post as postSchema } from './postSchema';
 import { Creators as PostsActions } from "./postActions";
 
 export function* fetchPosts(action) {
@@ -13,7 +13,7 @@ export function* fetchPosts(action) {
     const response = yield call(api.get, url);
 
     yield put(
-      PostsActions.fetchPostsSuccess(normalize(response.data, [post]), category)
+      PostsActions.fetchPostsSuccess(normalize(response.data, [postSchema]), category)
     );
   } catch (err) {
     yield put(
@@ -33,7 +33,7 @@ export function* fetchPost(action) {
     const response = yield call(api.get, url);
 
     yield put(
-      PostsActions.fetchSinglePostSuccess(normalize(response.data, post), category)
+      PostsActions.fetchSinglePostSuccess(normalize(response.data, postSchema), category)
     );
   } catch (err) {
     yield put(
@@ -50,9 +50,8 @@ export function* registerVotePost(action) {
 
   try {
     const response = yield call(api.post, `/posts/${postId}`, { option });
-    console.log('response ', normalize(response.data, post))
     yield put(
-      PostsActions.registerPostVoteSuccess(normalize(response.data, post), postId),
+      PostsActions.registerPostVoteSuccess(normalize(response.data, postSchema), postId),
     );
   } catch (err) {
     yield put(
@@ -73,8 +72,8 @@ export function* updatePost(action) {
 
   try {
     const response = yield call(api.put, `/posts/${postId}`, { ...params });
-
-    yield put(PostsActions.updatePostSuccess(normalize(response.data, post)));
+console.log('response :', normalize(response.data, postSchema));
+    yield put(PostsActions.updatePostSuccess(normalize(response.data, postSchema)));
   } catch (err) {
     yield put(
       PostsActions.updatePostError(
@@ -88,8 +87,8 @@ export function* deletePost(action) {
   const { postId } = action.payload;
   try {
     const response = yield call(api.delete, `/posts/${postId}`);
-
-    yield put(PostsActions.deletePostSuccess(normalize(response.data, post)));
+    console.log('response :', normalize(response.data, postSchema));
+    yield put(PostsActions.deletePostSuccess(normalize(response.data, postSchema)));
   } catch (err) {
     yield put(
       PostsActions.deletePostError(
@@ -99,16 +98,14 @@ export function* deletePost(action) {
   }
 }
 
-
-
 export function* addPost(action) {
     const { post } = action.payload;
 
     try {
       const response = yield call(api.post, '/posts', { ...post });
-      console.log('response :', response);
+
       yield put(
-        PostsActions.addPostSuccess(normalize(response.data, post)),
+        PostsActions.addPostSuccess(normalize(response.data, postSchema)),
       );
     } catch (err) {
       yield put(

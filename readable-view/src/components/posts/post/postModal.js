@@ -41,7 +41,7 @@ class PostModal extends React.Component {
   };
 
   closeModal = () => {
-    this.setState({ open: false });
+    this.setState({...initialState});
   };
 
   handleBodyChange = e => {
