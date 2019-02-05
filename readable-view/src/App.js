@@ -33,6 +33,7 @@ class App extends React.Component {
               <PostModal />
               <div className="row">
                 <Switch>
+                  <Route exact path="/404" component={PageNotFound} />
                   <Route exact path="/" render={() => <Dashboard />} />
                   <Route exact path="/:category" render={() => <Dashboard />} />
                   <Route exact path="/:category/:id" render={() => <PostDetail />} />

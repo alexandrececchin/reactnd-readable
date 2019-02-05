@@ -1,11 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import Posts from '../components/posts/posts';
 import { Creators as PostActions } from '../redux/post/postActions';
 import { Selectors } from '../redux/rootReducer';
-
+let StyleGif = {
+  backgroundImage: "url('/dist/img/notfound.png')",
+  backgroundPosition: 'bottom',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'contain',
+  minHeight: '350px'
+};
 function getSortedPostsArray(posts, option) {
   if (option) {
     switch (option) {
@@ -13,8 +19,6 @@ function getSortedPostsArray(posts, option) {
         return posts.sort((a, b) => a.voteScore < b.voteScore).map(p => p.id);
       case 'date':
         return posts.sort((a, b) => a.timestamp < b.timestamp).map(p => p.id);
-      case 'author':
-        return posts.sort((a, b) => a.author.localeCompare(b.author));
       default:
         return posts.map(p => p.id);
     }
@@ -46,6 +50,11 @@ class Dashboard extends Component {
 
   render() {
     const postsIds = getSortedPostsArray(this.props.posts, this.state.filterOption);
+
+    if (postsIds.length <= 0) {
+      return <NoResults />;
+    }
+
     return (
       <div>
         <div className="col-md-6 col-md-offset-3">
@@ -64,11 +73,6 @@ class Dashboard extends Component {
                   Score
                 </a>
               </li>
-              {/* <li>
-                <a href="/#" onClick={() => this.handleChangeFilter('author')}>
-                  Author
-                </a>
-              </li> */}
             </ul>
           </div>
         </div>
@@ -77,6 +81,19 @@ class Dashboard extends Component {
     );
   }
 }
+
+const NoResults = () => {
+  return (
+    <Fragment>
+      <div className="col-lg-6 col-md-offset-3" style={StyleGif} />
+      <div className="col-lg-6 col-md-offset-4">
+        <h2>Sorry!</h2>
+        <h3>Looks like no one has anything to share. Be the first one!</h3>
+      </div>
+    </Fragment>
+  );
+};
+
 const mapDispatchToProps = dispatch => bindActionCreators(PostActions, dispatch);
 
 function mapStateToProps(state, props) {
