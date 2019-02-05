@@ -5,13 +5,8 @@ import { bindActionCreators } from 'redux';
 import Posts from '../components/posts/posts';
 import { Creators as PostActions } from '../redux/post/postActions';
 import { Selectors } from '../redux/rootReducer';
-let StyleGif = {
-  backgroundImage: "url('/dist/img/notfound.png')",
-  backgroundPosition: 'bottom',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'contain',
-  minHeight: '350px'
-};
+
+
 function getSortedPostsArray(posts, option) {
   if (option) {
     switch (option) {
@@ -82,10 +77,18 @@ class Dashboard extends Component {
   }
 }
 
+let styleBackground = {
+    backgroundImage: "url('/dist/img/notfound.png')",
+    backgroundPosition: 'bottom',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'contain',
+    minHeight: '350px'
+  };
+
 const NoResults = () => {
   return (
     <Fragment>
-      <div className="col-lg-6 col-md-offset-3" style={StyleGif} />
+      <div className="col-lg-6 col-md-offset-3" style={styleBackground} />
       <div className="col-lg-6 col-md-offset-4">
         <h2>Sorry!</h2>
         <h3>Looks like no one has anything to share. Be the first one!</h3>
