@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Posts from '../components/posts/posts';
 import { Creators as PostActions } from '../redux/post/postActions';
 import { Selectors } from '../redux/rootReducer';
-
+import PostModal from '../components/posts/post/postModal';
 
 function getSortedPostsArray(posts, option) {
   if (option) {
@@ -52,6 +52,7 @@ class Dashboard extends Component {
 
     return (
       <div>
+        <PostModal />
         <div className="col-md-6 col-md-offset-3">
           <div className="btn-group">
             <button type="button" className="btn btn- dropdown-toggle" data-toggle="dropdown">
@@ -78,16 +79,17 @@ class Dashboard extends Component {
 }
 
 let styleBackground = {
-    backgroundImage: "url('/dist/img/notfound.png')",
-    backgroundPosition: 'bottom',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'contain',
-    minHeight: '350px'
-  };
+  backgroundImage: "url('/dist/img/notfound.png')",
+  backgroundPosition: 'bottom',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'contain',
+  minHeight: '350px'
+};
 
 const NoResults = () => {
   return (
     <Fragment>
+      <PostModal />
       <div className="col-lg-6 col-md-offset-3" style={styleBackground} />
       <div className="col-lg-6 col-md-offset-4">
         <h2>Sorry!</h2>

@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { Creators as PostActions } from '../redux/post/postActions';
 import { Creators as CommentActions } from '../redux/comment/commentActions';
 import { Selectors } from '../redux/rootReducer';
+import PostModal from '../components/posts/post/postModal';
 
 class postDetail extends Component {
   componentDidMount() {
@@ -25,6 +26,7 @@ class postDetail extends Component {
 
     return (
       <div className="col-md-10 col-md-offset-1">
+        <PostModal />
         <div className="box-footer box-comments">
           <Post id={id} />
           <Comments postId={id} comments={commentsToRender} />

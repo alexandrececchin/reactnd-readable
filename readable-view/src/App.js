@@ -9,7 +9,6 @@ import { Creators as CategoryActions } from './redux/category/categoryActions';
 import PropTypes from 'prop-types';
 import Loading from './components/loading/loading';
 import Notifacations from './components/notifications/notifacations';
-import PostModal from './components/posts/post/postModal';
 
 class App extends React.Component {
   static propTypes = {
@@ -30,7 +29,6 @@ class App extends React.Component {
           <div className="content-wrapper">
             <Notifacations />
             <section className="content">
-              <PostModal />
               <div className="row">
                 <Switch>
                   <Route exact path="/404" component={PageNotFound} />
