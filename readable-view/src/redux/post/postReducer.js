@@ -14,7 +14,7 @@ export default function posts(state = {}, action) {
   switch (action.type) {
     case FECTH_POSTS.SUCCESS:
     case FECTH_POST.SUCCESS:
-      return { ...action.payload.data.entities.posts };
+      return {...state, ...action.payload.data.entities.posts };
     case ADD_POST.SUCCESS:
     case VOTE_POST.SUCCESS:
     case UPDATE_POST.SUCCESS:
@@ -63,10 +63,4 @@ export const getPostsByCategory = (state, category) => {
   return visiblePosts;
 };
 
-export const getPost = (state, postId) =>
-  createSelector(
-    postList,
-    post => {
-      return postList[postId];
-    }
-  );
+export const getPost = (state, postId) => state.posts[postId]
