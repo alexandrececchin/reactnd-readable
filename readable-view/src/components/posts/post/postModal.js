@@ -5,18 +5,12 @@ import { connect } from 'react-redux';
 import CategorySelect from '../../category/categorySelect';
 import { Creators as PostActions } from '../../../redux/post/postActions';
 
-const INITIAL_STATE = {
-  open: false,
-  post: {
+const INITIAL_POST = {
     id: '',
     body: '',
     title: '',
     author: '',
     category: null
-  },
-  postError: '',
-  titleError: '',
-  authorError: ''
 };
 
 let style = {
@@ -29,19 +23,23 @@ let style = {
 class PostModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = INITIAL_STATE;
+    this.state = {
+      open: false,
+      post: {...INITIAL_POST},
+      postError: '',
+      titleError: '',
+      authorError: ''
+    };
+    this.baseState = this.state;
   }
-
-  cleanState = () => {
-    this.setState(INITIAL_STATE);
-  };
 
   openModal = () => {
     this.setState({ open: true });
   };
 
   closeModal = () => {
-    this.setState({...INITIAL_STATE});
+    const post = {...INITIAL_POST}
+    this.setState({post: post, open:false});
   };
 
   handleBodyChange = e => {
@@ -172,7 +170,10 @@ class PostModal extends React.Component {
                   <div className="col-md-6">
                     <div className="form-group">
                       <label>Category*: </label>
-                      <CategorySelect handleSelect={this.handleCategorySelect} selectedOption={this.state.post.category} />
+                      <CategorySelect
+                        handleSelect={this.handleCategorySelect}
+                        selectedOption={this.state.post.category}
+                      />
                     </div>
                   </div>
                 </div>
