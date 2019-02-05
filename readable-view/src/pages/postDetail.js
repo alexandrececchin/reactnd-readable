@@ -19,8 +19,8 @@ class postDetail extends Component {
 
   render() {
     const id = this.props.match.params.id;
-    const { commentsToRender, redirectHome } = this.props;
-    if (redirectHome) {
+    const { commentsToRender, redirect } = this.props;
+    if (redirect) {
       return <Redirect to="/404" />;
     }
 
@@ -46,17 +46,17 @@ function mapStateToProps(state, props) {
 
   let post = Selectors.posts.getPost(state, id);
   console.log('object :', post);
-  let redirectHome = false;
+  let redirect = false;
 
   if (post && post.deleted) {
-    redirectHome = true;
+    redirect = true;
   }
 
   return {
     category,
     id,
     commentsToRender,
-    redirectHome
+    redirect
   };
 }
 
