@@ -6,11 +6,11 @@ import CategorySelect from '../../category/categorySelect';
 import { Creators as PostActions } from '../../../redux/post/postActions';
 
 const INITIAL_POST = {
-    id: '',
-    body: '',
-    title: '',
-    author: '',
-    category: null
+  id: '',
+  body: '',
+  title: '',
+  author: '',
+  category: null
 };
 
 let style = {
@@ -25,12 +25,13 @@ class PostModal extends React.Component {
     super(props);
     this.state = {
       open: false,
-      post: {...INITIAL_POST},
+      post: { ...INITIAL_POST },
       postError: '',
       titleError: '',
       authorError: ''
     };
     this.baseState = this.state;
+    this.closeModal = this.closeModal.bind(this);
   }
 
   openModal = () => {
@@ -38,8 +39,9 @@ class PostModal extends React.Component {
   };
 
   closeModal = () => {
-    const post = {...INITIAL_POST}
-    this.setState({post: post, open:false});
+    this.select.clearSelect();
+    const post = { ...INITIAL_POST };
+    this.setState({ post: post, open: false });
   };
 
   handleBodyChange = e => {
@@ -171,6 +173,7 @@ class PostModal extends React.Component {
                     <div className="form-group">
                       <label>Category*: </label>
                       <CategorySelect
+                        onRef={ref => (this.select = ref)}
                         handleSelect={this.handleCategorySelect}
                         selectedOption={this.state.post.category}
                       />

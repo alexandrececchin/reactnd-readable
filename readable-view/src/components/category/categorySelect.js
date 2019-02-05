@@ -4,9 +4,19 @@ import Select from 'react-select';
 import propTypes from 'prop-types';
 
 class categorySelect extends Component {
-  state = {
-    selectedOption: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedOption: null
+    };
+  }
+
+  componentDidMount() {
+    this.props.onRef(this);
+  }
+  componentWillUnmount() {
+    this.props.onRef(null);
+  }
 
   handleChange = selectedOption => {
     if (selectedOption) {
@@ -16,6 +26,10 @@ class categorySelect extends Component {
       this.setState({ selectedOption: null });
       this.props.handleSelect(null);
     }
+  };
+
+  clearSelect = () => {
+    this.setState({ selectedOption: null });
   };
 
   render() {
